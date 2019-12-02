@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 module.exports = app => {
-    app.get("/api/user/:email/:password", async (req, res) => {
+    app.get("/api/user/:email/:password", async(req, res) => {
         const email = req.params.email;
         const password = req.params.password;
         const item = await user.findOne({ email: email });
@@ -23,10 +23,9 @@ module.exports = app => {
                 let result = {};
                 result.token = token;
                 result.status = 200;
-                result.user = item;
+                result.user = { email: item.email, name: item.name };
                 res.status(200).json(result);
-            }
-            else {
+            } else {
                 res.status(401).json("password seems wrong");
             }
 
@@ -35,7 +34,7 @@ module.exports = app => {
         }
     });
 
-    app.post("/api/user", async (req, res) => {
+    app.post("/api/user", async(req, res) => {
         const name = req.body.name;
         const email = req.body.email;
         //encrypting password before storing in DB
