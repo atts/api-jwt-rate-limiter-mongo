@@ -30,6 +30,18 @@ var validateToken = function(token) {
 }
 
 module.exports = app => {
+    app.get("https://api-url-shortener-service.herokuapp.com/:code", async(req, res) => {
+        const urlCode = req.params.code;
+        const item = await url.findOne({ urlCode: urlCode });
+        if (item) {
+            console.log(item._id);
+            analytics.addAnalytics(item._id)
+            return res.redirect(item.originalUrl); // in case only the API needs to utilized we can direct redirect from API itself.
+        } else {
+            return res.send(errorUrl);
+        }
+    });
+
     app.get("/api/item/:code", async(req, res) => {
         const token = req.headers.bearer;
         if (token && validateToken(token)) {
