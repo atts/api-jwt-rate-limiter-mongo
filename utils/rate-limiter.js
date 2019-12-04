@@ -1,6 +1,7 @@
 var redis = require('redis');
 var url = require('url');
 var redisURL = url.parse(process.env.REDIS_URL);
+console.log("the redis url is " + redisURL);
 var client = redis.createClient(redisURL.port, redisURL.hostname, { no_ready_check: true });
 client.auth(redisURL.auth.split(":")[1]);
 const RateLimit = require('express-rate-limit');
