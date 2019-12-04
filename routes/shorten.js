@@ -38,8 +38,8 @@ module.exports = app => {
             if (item) {
                 console.log(item._id);
                 analytics.addAnalytics(item._id)
-                return res.redirect(item.originalUrl); // in case only the API needs to utilized we can direct redirect from API itself.
-                //return res.status(200).json(item.originalUrl);
+                    //return res.redirect(item.originalUrl); // in case only the API needs to utilized we can direct redirect from API itself.
+                return res.status(200).json(item.originalUrl);
             } else {
                 return res.send(errorUrl);
             }
