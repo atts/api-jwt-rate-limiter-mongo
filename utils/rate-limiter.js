@@ -9,7 +9,7 @@ const RedisStore = require('rate-limit-redis');
 const limiter = new RateLimit({
     store: new RedisStore({
         expiry: 60,
-        client: redis.createClient({ url: redisURL, db: 2 })
+        client: redis.createClient({ url: redisURL })
     }),
     max: 100, // limit each IP to 100 requests. post limit error - "Too many requests, please try again later."
 });
